@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Kewin Kupilas</Authors>
+    <Company />
+    <Version>0.10.3.1</Version>
+    <Description>An extension of AvaloniaUI's Grid class with added RowSpacing and ColumnSpacing properties.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/Nickelony/SpacedGrid.Avalonia</RepositoryUrl>
+    <PackageTags>avalonia avaloniaui grid spacing spaced layout</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.3" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.3" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.3" />
+   </ItemGroup>
+</Project>
