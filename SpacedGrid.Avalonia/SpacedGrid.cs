@@ -17,7 +17,7 @@ namespace SpacedGrid.Avalonia
 			set
 			{
 				SetValue(RowSpacingProperty, value);
-				UpdateSpacedRows();
+				RecalculateRowSpacing();
 			}
 		}
 
@@ -27,7 +27,7 @@ namespace SpacedGrid.Avalonia
 			set
 			{
 				SetValue(ColumnSpacingProperty, value);
-				UpdateSpacedColumns();
+				RecalculateColumnSpacing();
 			}
 		}
 
@@ -52,7 +52,7 @@ namespace SpacedGrid.Avalonia
 		private void UpdateSpacedRows()
 		{
 			var oldRowDefinitions = new RowDefinitions();
-			oldRowDefinitions.AddRange(RowDefinitions.Where(x => !(x is SpacingRowDefinition)));
+			oldRowDefinitions.AddRange(RowDefinitions.Where(x => !(x is ISpacingDefinition)));
 
 			var newRowDefinitions = new RowDefinitions();
 
@@ -78,7 +78,7 @@ namespace SpacedGrid.Avalonia
 		private void UpdateSpacedColumns()
 		{
 			var oldColumnDefinitions = new ColumnDefinitions();
-			oldColumnDefinitions.AddRange(ColumnDefinitions.Where(x => !(x is SpacingColumnDefinition)));
+			oldColumnDefinitions.AddRange(ColumnDefinitions.Where(x => !(x is ISpacingDefinition)));
 
 			var newColumnDefinitions = new ColumnDefinitions();
 
@@ -118,6 +118,18 @@ namespace SpacedGrid.Avalonia
 						SetColumnSpan(child, GetColumnSpan(child) * 2 - 1);
 					}
 				}
+		}
+
+		private void RecalculateRowSpacing()
+		{
+			foreach (ISpacingDefinition spacingRow in RowDefinitions.Where(x => x is ISpacingDefinition))
+				spacingRow.Spacing = RowSpacing;
+		}
+
+		private void RecalculateColumnSpacing()
+		{
+			foreach (ISpacingDefinition spacingColumn in ColumnDefinitions.Where(x => x is ISpacingDefinition))
+				spacingColumn.Spacing = ColumnSpacing;
 		}
 
 		private void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
