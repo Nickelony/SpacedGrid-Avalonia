@@ -8,6 +8,8 @@ namespace SpacedGrid.Avalonia
 {
 	public class SpacedGrid : Grid
 	{
+		#region Properties
+
 		public static readonly StyledProperty<double> RowSpacingProperty = AvaloniaProperty.Register<SpacedGrid, double>(nameof(RowSpacing), 3);
 		public static readonly StyledProperty<double> ColumnSpacingProperty = AvaloniaProperty.Register<SpacedGrid, double>(nameof(ColumnSpacing), 3);
 
@@ -31,6 +33,10 @@ namespace SpacedGrid.Avalonia
 			}
 		}
 
+		#endregion Properties
+
+		#region Construction
+
 		public SpacedGrid()
 		{
 			RowDefinitions.CollectionChanged += delegate { UpdateSpacedRows(); };
@@ -38,6 +44,10 @@ namespace SpacedGrid.Avalonia
 
 			Children.CollectionChanged += Children_CollectionChanged;
 		}
+
+		#endregion Construction
+
+		#region Override methods
 
 		protected override void OnInitialized()
 		{
@@ -49,75 +59,87 @@ namespace SpacedGrid.Avalonia
 			UpdateChildren(Children);
 		}
 
+		#endregion Override methods
+
+		#region Events
+
+		private void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			if (e.Action == NotifyCollectionChangedAction.Add)
+				UpdateChildren(e.NewItems);
+		}
+
+		#endregion Events
+
+		#region Other methods
+
 		private void UpdateSpacedRows()
 		{
-			var oldRowDefinitions = new RowDefinitions();
-			oldRowDefinitions.AddRange(RowDefinitions.Where(x => !(x is ISpacingDefinition)));
+			var userRowDefinitions = new RowDefinitions(); // User-defined rows (e.g. the ones defined in the XAML files)
+			userRowDefinitions.AddRange(RowDefinitions.Where(x => !(x is ISpacingDefinition))); // Exclude spacing rows
 
-			var newRowDefinitions = new RowDefinitions();
+			var actualRowDefinitions = new RowDefinitions(); // User-defined + spacing rows
 
-			int currentUserDefinition = 0;
-			int currentActualDefinition = 0;
+			int currentUserDefinition = 0, currentActualDefinition = 0;
 
-			while (currentUserDefinition < oldRowDefinitions.Count)
+			while (currentUserDefinition < userRowDefinitions.Count)
 			{
-				if ((currentActualDefinition + 1) % 2 == 0 && RowSpacing > 0)
-					newRowDefinitions.Add(new SpacingRowDefinition(RowSpacing));
-				else
+				if (currentActualDefinition % 2 == 0) // Even rows are user-defined rows (0, 2, 4, 6, 8, 10, ...)
 				{
-					newRowDefinitions.Add(oldRowDefinitions[currentUserDefinition]);
+					actualRowDefinitions.Add(userRowDefinitions[currentUserDefinition]);
 					currentUserDefinition++;
 				}
+				else // Odd rows are spacing rows (1, 3, 5, 7, 9, 11, ...)
+					actualRowDefinitions.Add(new SpacingRowDefinition(RowSpacing));
 
 				currentActualDefinition++;
 			}
 
-			RowDefinitions = newRowDefinitions;
+			RowDefinitions = actualRowDefinitions;
 		}
 
 		private void UpdateSpacedColumns()
 		{
-			var oldColumnDefinitions = new ColumnDefinitions();
-			oldColumnDefinitions.AddRange(ColumnDefinitions.Where(x => !(x is ISpacingDefinition)));
+			var userColumnDefinitions = new ColumnDefinitions(); // User-defined columns (e.g. the ones defined in the XAML files)
+			userColumnDefinitions.AddRange(ColumnDefinitions.Where(x => !(x is ISpacingDefinition))); // Exclude spacing columns
 
-			var newColumnDefinitions = new ColumnDefinitions();
+			var actualColumnDefinitions = new ColumnDefinitions(); // User-defined + spacing columns
 
-			int currentUserDefinition = 0;
-			int currentActualDefinition = 0;
+			int currentUserDefinition = 0, currentActualDefinition = 0;
 
-			while (currentUserDefinition < oldColumnDefinitions.Count)
+			while (currentUserDefinition < userColumnDefinitions.Count)
 			{
-				if ((currentActualDefinition + 1) % 2 == 0 && ColumnSpacing > 0)
-					newColumnDefinitions.Add(new SpacingColumnDefinition(ColumnSpacing));
-				else
+				if (currentActualDefinition % 2 == 0) // Even columns are user-defined columns (0, 2, 4, 6, 8, 10, ...)
 				{
-					newColumnDefinitions.Add(oldColumnDefinitions[currentUserDefinition]);
+					actualColumnDefinitions.Add(userColumnDefinitions[currentUserDefinition]);
 					currentUserDefinition++;
 				}
+				else // Odd columns are spacing columns (1, 3, 5, 7, 9, 11, ...)
+					actualColumnDefinitions.Add(new SpacingColumnDefinition(ColumnSpacing));
 
 				currentActualDefinition++;
 			}
 
-			ColumnDefinitions = newColumnDefinitions;
+			ColumnDefinitions = actualColumnDefinitions;
 		}
 
+		/// <summary>
+		/// Updates the following parameters of passed children, so they match the new Row and Column definitions:<br />
+		/// <c>Grid.Row</c><br />
+		/// <c>Grid.Column</c><br />
+		/// <c>Grid.RowSpan</c><br />
+		/// <c>Grid.ColumnSpan</c>
+		/// </summary>
 		private void UpdateChildren(IList children)
 		{
-			if (RowSpacing > 0 || ColumnSpacing > 0)
-				foreach (Control child in children)
-				{
-					if (RowSpacing > 0)
-					{
-						SetRow(child, GetRow(child) * 2);
-						SetRowSpan(child, GetRowSpan(child) * 2 - 1);
-					}
+			foreach (Control child in children)
+			{
+				SetRow(child, GetRow(child) * 2); // 1 -> 2 or 2 -> 4
+				SetRowSpan(child, GetRowSpan(child) * 2 - 1); // 2 -> 3 or 3 -> 5
 
-					if (ColumnSpacing > 0)
-					{
-						SetColumn(child, GetColumn(child) * 2);
-						SetColumnSpan(child, GetColumnSpan(child) * 2 - 1);
-					}
-				}
+				SetColumn(child, GetColumn(child) * 2); // 1 -> 2 or 2 -> 4
+				SetColumnSpan(child, GetColumnSpan(child) * 2 - 1); // 2 -> 3 or 3 -> 5
+			}
 		}
 
 		private void RecalculateRowSpacing()
@@ -132,10 +154,6 @@ namespace SpacedGrid.Avalonia
 				spacingColumn.Spacing = ColumnSpacing;
 		}
 
-		private void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-		{
-			if (e.Action == NotifyCollectionChangedAction.Add)
-				UpdateChildren(e.NewItems);
-		}
+		#endregion Other methods
 	}
 }
