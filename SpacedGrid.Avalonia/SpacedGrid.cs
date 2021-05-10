@@ -75,7 +75,7 @@ namespace SpacedGrid.Avalonia
 
 		private void UpdateSpacedRows()
 		{
-			var userRowDefinitions = new RowDefinitions(); // User-defined rows (e.g. the ones defined in the XAML files)
+			var userRowDefinitions = new RowDefinitions(); // User-defined rows (e.g. the ones defined in XAML files)
 			userRowDefinitions.AddRange(RowDefinitions.Where(x => !(x is ISpacingDefinition))); // Exclude spacing rows
 
 			var actualRowDefinitions = new RowDefinitions(); // User-defined + spacing rows
@@ -100,7 +100,7 @@ namespace SpacedGrid.Avalonia
 
 		private void UpdateSpacedColumns()
 		{
-			var userColumnDefinitions = new ColumnDefinitions(); // User-defined columns (e.g. the ones defined in the XAML files)
+			var userColumnDefinitions = new ColumnDefinitions(); // User-defined columns (e.g. the ones defined in XAML files)
 			userColumnDefinitions.AddRange(ColumnDefinitions.Where(x => !(x is ISpacingDefinition))); // Exclude spacing columns
 
 			var actualColumnDefinitions = new ColumnDefinitions(); // User-defined + spacing columns
