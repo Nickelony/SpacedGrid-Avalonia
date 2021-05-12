@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Linq;
@@ -16,21 +17,13 @@ namespace SpacedGrid.Avalonia
 		public double RowSpacing
 		{
 			get => GetValue(RowSpacingProperty);
-			set
-			{
-				SetValue(RowSpacingProperty, value);
-				RecalculateRowSpacing();
-			}
+			set => SetValue(RowSpacingProperty, value);
 		}
 
 		public double ColumnSpacing
 		{
 			get => GetValue(ColumnSpacingProperty);
-			set
-			{
-				SetValue(ColumnSpacingProperty, value);
-				RecalculateColumnSpacing();
-			}
+			set => SetValue(ColumnSpacingProperty, value);
 		}
 
 		#endregion Properties
@@ -59,13 +52,23 @@ namespace SpacedGrid.Avalonia
 			UpdateChildren(Children);
 		}
 
+		protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
+		{
+			base.OnPropertyChanged(change);
+
+			if (change.Property.Name.Equals("RowSpacing", StringComparison.OrdinalIgnoreCase))
+				RecalculateRowSpacing();
+			else if (change.Property.Name.Equals("ColumnSpacing", StringComparison.OrdinalIgnoreCase))
+				RecalculateColumnSpacing();
+		}
+
 		#endregion Override methods
 
 		#region Events
 
 		private void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (e.Action == NotifyCollectionChangedAction.Add)
+			if (e.Action == NotifyCollectionChangedAction.Add || e.Action == NotifyCollectionChangedAction.Replace)
 				UpdateChildren(e.NewItems);
 		}
 
