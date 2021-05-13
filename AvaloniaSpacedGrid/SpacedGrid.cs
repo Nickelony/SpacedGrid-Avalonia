@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Linq;
 
-namespace SpacedGrid.Avalonia
+namespace AvaloniaSpacedGrid
 {
 	public class SpacedGrid : Grid
 	{

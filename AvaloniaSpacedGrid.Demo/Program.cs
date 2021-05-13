@@ -1,6 +1,6 @@
 using Avalonia;
 
-namespace SpacedGrid.Avalonia.Demo
+namespace AvaloniaSpacedGrid.Demo
 {
 	internal class Program
 	{

@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System;
 
-namespace SpacedGrid.Avalonia.Demo
+namespace AvaloniaSpacedGrid.Demo
 {
 	public partial class MainWindow : Window
 	{
@@ -15,7 +15,7 @@ namespace SpacedGrid.Avalonia.Demo
 		{
 			InitializeComponent();
 #if DEBUG
-            this.AttachDevTools();
+			this.AttachDevTools();
 #endif
 			spacedGrid = this.FindControl<SpacedGrid>("SpacedGrid");
 			textBlock_RowSpacing = this.FindControl<TextBlock>("textBlock_RowSpacing");

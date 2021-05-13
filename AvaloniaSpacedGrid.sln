@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaloniaSpacedGrid", "AvaloniaSpacedGrid\AvaloniaSpacedGrid.csproj", "{16402DFD-117E-4698-AFF7-0D4CB5430BAD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaloniaSpacedGrid.Demo", "AvaloniaSpacedGrid.Demo\AvaloniaSpacedGrid.Demo.csproj", "{9F154862-DB33-4C83-BDE1-F805963BBD6B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16402DFD-117E-4698-AFF7-0D4CB5430BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16402DFD-117E-4698-AFF7-0D4CB5430BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16402DFD-117E-4698-AFF7-0D4CB5430BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16402DFD-117E-4698-AFF7-0D4CB5430BAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F154862-DB33-4C83-BDE1-F805963BBD6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F154862-DB33-4C83-BDE1-F805963BBD6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F154862-DB33-4C83-BDE1-F805963BBD6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F154862-DB33-4C83-BDE1-F805963BBD6B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {00681BDE-2C77-416F-9C39-CE2FEF90FBF9}
+	EndGlobalSection
+EndGlobal

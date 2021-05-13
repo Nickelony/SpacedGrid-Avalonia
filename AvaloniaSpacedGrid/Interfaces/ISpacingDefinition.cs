@@ -1,4 +1,4 @@
-﻿namespace SpacedGrid.Avalonia
+﻿namespace AvaloniaSpacedGrid
 {
 	public interface ISpacingDefinition
 	{

@@ -1,6 +1,6 @@
 ﻿using Avalonia.Controls;
 
-namespace SpacedGrid.Avalonia
+namespace AvaloniaSpacedGrid
 {
 	public class SpacingRowDefinition : RowDefinition, ISpacingDefinition
 	{
