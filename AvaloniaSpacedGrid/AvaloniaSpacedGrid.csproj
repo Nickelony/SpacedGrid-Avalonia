@@ -3,14 +3,21 @@
 		<OutputType>Library</OutputType>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>0.10.4</Version>
+		<Version>0.10.18</Version>
 		<Authors>Kewin Kupilas</Authors>
 		<Description>An extension of AvaloniaUI's Grid class with added RowSpacing and ColumnSpacing properties.</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/Nickelony/AvaloniaSpacedGrid</RepositoryUrl>
 		<PackageTags>avalonia avaloniaui grid spacing spaced layout</PackageTags>
+		<PackageIcon>Icon.png</PackageIcon>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="0.10.4" />
+		<Content Include="Icon\Icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="0.10.18" />
 	</ItemGroup>
 </Project>

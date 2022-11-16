@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 
@@ -25,6 +25,22 @@ namespace AvaloniaSpacedGrid
 			get => GetValue(ColumnSpacingProperty);
 			set => SetValue(ColumnSpacingProperty, value);
 		}
+
+		/// <summary>
+		/// Returns an enumerable of all the grid's row definitions, <u>excluding</u> spacing rows.
+		/// </summary>
+		public IEnumerable<RowDefinition> UserDefinedRowDefinitions =>
+			from definition in RowDefinitions
+			where !(definition is ISpacingDefinition)
+			select definition;
+
+		/// <summary>
+		/// Returns an enumerable of all the grid's column definitions, <u>excluding</u> spacing columns.
+		/// </summary>
+		public IEnumerable<ColumnDefinition> UserDefinedColumnDefinitions =>
+			from definition in ColumnDefinitions
+			where !(definition is ISpacingDefinition)
+			select definition;
 
 		#endregion Properties
 
@@ -56,10 +72,16 @@ namespace AvaloniaSpacedGrid
 		{
 			base.OnPropertyChanged(change);
 
-			if (change.Property.Name.Equals("RowSpacing", StringComparison.OrdinalIgnoreCase))
-				RecalculateRowSpacing();
-			else if (change.Property.Name.Equals("ColumnSpacing", StringComparison.OrdinalIgnoreCase))
-				RecalculateColumnSpacing();
+			switch (change.Property.Name)
+			{
+				case nameof(RowSpacing):
+					RecalculateRowSpacing();
+					break;
+
+				case nameof(ColumnSpacing):
+					RecalculateColumnSpacing();
+					break;
+			}
 		}
 
 		#endregion Override methods
@@ -78,12 +100,11 @@ namespace AvaloniaSpacedGrid
 
 		private void UpdateSpacedRows()
 		{
-			var userRowDefinitions = new RowDefinitions(); // User-defined rows (e.g. the ones defined in XAML files)
-			userRowDefinitions.AddRange(RowDefinitions.Where(x => !(x is ISpacingDefinition))); // Exclude spacing rows
-
+			var userRowDefinitions = UserDefinedRowDefinitions.ToList(); // User-defined rows (e.g. the ones defined in XAML files)
 			var actualRowDefinitions = new RowDefinitions(); // User-defined + spacing rows
 
-			int currentUserDefinition = 0, currentActualDefinition = 0;
+			int currentUserDefinition = 0,
+				currentActualDefinition = 0;
 
 			while (currentUserDefinition < userRowDefinitions.Count)
 			{
@@ -99,16 +120,16 @@ namespace AvaloniaSpacedGrid
 			}
 
 			RowDefinitions = actualRowDefinitions;
+			RowDefinitions.CollectionChanged += delegate { UpdateSpacedRows(); };
 		}
 
 		private void UpdateSpacedColumns()
 		{
-			var userColumnDefinitions = new ColumnDefinitions(); // User-defined columns (e.g. the ones defined in XAML files)
-			userColumnDefinitions.AddRange(ColumnDefinitions.Where(x => !(x is ISpacingDefinition))); // Exclude spacing columns
-
+			var userColumnDefinitions = UserDefinedColumnDefinitions.ToList(); // User-defined columns (e.g. the ones defined in XAML files)
 			var actualColumnDefinitions = new ColumnDefinitions(); // User-defined + spacing columns
 
-			int currentUserDefinition = 0, currentActualDefinition = 0;
+			int currentUserDefinition = 0,
+				currentActualDefinition = 0;
 
 			while (currentUserDefinition < userColumnDefinitions.Count)
 			{
@@ -124,6 +145,7 @@ namespace AvaloniaSpacedGrid
 			}
 
 			ColumnDefinitions = actualColumnDefinitions;
+			ColumnDefinitions.CollectionChanged += delegate { UpdateSpacedColumns(); };
 		}
 
 		/// <summary>
@@ -138,22 +160,22 @@ namespace AvaloniaSpacedGrid
 			foreach (Control child in children)
 			{
 				SetRow(child, GetRow(child) * 2); // 1 -> 2 or 2 -> 4
-				SetRowSpan(child, GetRowSpan(child) * 2 - 1); // 2 -> 3 or 3 -> 5
+				SetRowSpan(child, (GetRowSpan(child) * 2) - 1); // 2 -> 3 or 3 -> 5
 
 				SetColumn(child, GetColumn(child) * 2); // 1 -> 2 or 2 -> 4
-				SetColumnSpan(child, GetColumnSpan(child) * 2 - 1); // 2 -> 3 or 3 -> 5
+				SetColumnSpan(child, (GetColumnSpan(child) * 2) - 1); // 2 -> 3 or 3 -> 5
 			}
 		}
 
 		private void RecalculateRowSpacing()
 		{
-			foreach (ISpacingDefinition spacingRow in RowDefinitions.Where(x => x is ISpacingDefinition))
+			foreach (ISpacingDefinition spacingRow in RowDefinitions.OfType<ISpacingDefinition>())
 				spacingRow.Spacing = RowSpacing;
 		}
 
 		private void RecalculateColumnSpacing()
 		{
-			foreach (ISpacingDefinition spacingColumn in ColumnDefinitions.Where(x => x is ISpacingDefinition))
+			foreach (ISpacingDefinition spacingColumn in ColumnDefinitions.OfType<ISpacingDefinition>())
 				spacingColumn.Spacing = ColumnSpacing;
 		}
 
