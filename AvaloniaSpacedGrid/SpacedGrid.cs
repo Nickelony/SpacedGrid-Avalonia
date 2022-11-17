@@ -1,6 +1,5 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -58,16 +57,6 @@ namespace AvaloniaSpacedGrid
 
 		#region Override methods
 
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
-
-			UpdateSpacedRows();
-			UpdateSpacedColumns();
-
-			UpdateChildren(Children);
-		}
-
 		protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
 		{
 			base.OnPropertyChanged(change);
@@ -91,7 +80,22 @@ namespace AvaloniaSpacedGrid
 		private void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			if (e.Action == NotifyCollectionChangedAction.Add || e.Action == NotifyCollectionChangedAction.Replace)
-				UpdateChildren(e.NewItems);
+			{
+				foreach (Control item in e.NewItems)
+					item.Initialized += Item_Initialized;
+			}
+		}
+
+		private void Item_Initialized(object sender, System.EventArgs e)
+		{
+			var item = sender as Control;
+			item.Initialized -= Item_Initialized;
+
+			SetRow(item, GetRow(item) * 2); // 1 -> 2 or 2 -> 4
+			SetRowSpan(item, (GetRowSpan(item) * 2) - 1); // 2 -> 3 or 3 -> 5
+
+			SetColumn(item, GetColumn(item) * 2); // 1 -> 2 or 2 -> 4
+			SetColumnSpan(item, (GetColumnSpan(item) * 2) - 1); // 2 -> 3 or 3 -> 5
 		}
 
 		#endregion Events
@@ -146,25 +150,6 @@ namespace AvaloniaSpacedGrid
 
 			ColumnDefinitions = actualColumnDefinitions;
 			ColumnDefinitions.CollectionChanged += delegate { UpdateSpacedColumns(); };
-		}
-
-		/// <summary>
-		/// Updates the following parameters of passed children, so they match the new Row and Column definitions:<br />
-		/// <c>Grid.Row</c><br />
-		/// <c>Grid.Column</c><br />
-		/// <c>Grid.RowSpan</c><br />
-		/// <c>Grid.ColumnSpan</c>
-		/// </summary>
-		private void UpdateChildren(IList children)
-		{
-			foreach (Control child in children)
-			{
-				SetRow(child, GetRow(child) * 2); // 1 -> 2 or 2 -> 4
-				SetRowSpan(child, (GetRowSpan(child) * 2) - 1); // 2 -> 3 or 3 -> 5
-
-				SetColumn(child, GetColumn(child) * 2); // 1 -> 2 or 2 -> 4
-				SetColumnSpan(child, (GetColumnSpan(child) * 2) - 1); // 2 -> 3 or 3 -> 5
-			}
 		}
 
 		private void RecalculateRowSpacing()
