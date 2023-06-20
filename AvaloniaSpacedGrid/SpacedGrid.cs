@@ -46,16 +46,22 @@ namespace AvaloniaSpacedGrid
 		#region Construction
 
 		public SpacedGrid()
-		{
-			RowDefinitions.CollectionChanged += delegate { UpdateSpacedRows(); };
-			ColumnDefinitions.CollectionChanged += delegate { UpdateSpacedColumns(); };
-
-			Children.CollectionChanged += Children_CollectionChanged;
-		}
+			=> Children.CollectionChanged += Children_CollectionChanged;
 
 		#endregion Construction
 
 		#region Override methods
+
+		protected override void OnInitialized()
+		{
+			base.OnInitialized();
+
+			RowDefinitions.CollectionChanged += delegate { UpdateSpacedRows(); };
+			ColumnDefinitions.CollectionChanged += delegate { UpdateSpacedColumns(); };
+
+			UpdateSpacedRows();
+			UpdateSpacedColumns();
+		}
 
 		protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
 		{
