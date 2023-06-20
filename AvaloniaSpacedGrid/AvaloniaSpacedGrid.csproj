@@ -3,7 +3,7 @@
 		<OutputType>Library</OutputType>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>0.10.21</Version>
+		<Version>11.0.0-rc1.1</Version>
 		<Authors>Kewin Kupilas</Authors>
 		<Description>An extension of AvaloniaUI's Grid class with added RowSpacing and ColumnSpacing properties.</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -18,6 +18,6 @@
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="0.10.21" />
+		<PackageReference Include="Avalonia" Version="11.0.0-rc1.1" />
 	</ItemGroup>
 </Project>

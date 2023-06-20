@@ -9,7 +9,7 @@
 		WindowStartupLocation="CenterScreen">
 
 	<Grid RowDefinitions="*, 80">
-		<sg:SpacedGrid Name="SpacedGrid" RowSpacing="10" ColumnSpacing="10">
+		<sg:SpacedGrid Name="spacedGrid" RowSpacing="10" ColumnSpacing="10">
 			<Grid.RowDefinitions>
 				<RowDefinition />
 				<RowDefinition />

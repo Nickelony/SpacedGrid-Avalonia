@@ -7,17 +7,13 @@ namespace AvaloniaSpacedGrid.Demo
 {
 	public partial class MainWindow : Window
 	{
-		private SpacedGrid spacedGrid;
-		private TextBlock textBlock_RowSpacing;
-		private TextBlock textBlock_ColumnSpacing;
-
 		public MainWindow()
 		{
 			InitializeComponent();
 #if DEBUG
 			this.AttachDevTools();
 #endif
-			spacedGrid = this.FindControl<SpacedGrid>("SpacedGrid");
+			spacedGrid = this.FindControl<SpacedGrid>("spacedGrid");
 			textBlock_RowSpacing = this.FindControl<TextBlock>("textBlock_RowSpacing");
 			textBlock_ColumnSpacing = this.FindControl<TextBlock>("textBlock_ColumnSpacing");
 		}
