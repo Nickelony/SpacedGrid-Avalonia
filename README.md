@@ -1,7 +1,7 @@
 # AvaloniaSpacedGrid
 An extension of AvaloniaUI's Grid class with added RowSpacing and ColumnSpacing properties.
 
-NuGet: https://www.nuget.org/packages/AvaloniaSpacedGrid/
+NuGet: https://www.nuget.org/packages/SpacedGrid-Avalonia
 
 WPF version: https://github.com/Nickelony/SpacedGrid-WPF/
 
