@@ -1,10 +1,12 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using SpacedGridControl.Avalonia.Definitions;
+using SpacedGridControl.Avalonia.Interfaces;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 
-namespace AvaloniaSpacedGrid
+namespace SpacedGridControl.Avalonia
 {
 	public class SpacedGrid : Grid
 	{

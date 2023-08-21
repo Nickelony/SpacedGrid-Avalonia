@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System;
 
-namespace AvaloniaSpacedGrid.Demo
+namespace SpacedGridControl.Avalonia.Demo
 {
 	public partial class MainWindow : Window
 	{
@@ -25,7 +25,7 @@ namespace AvaloniaSpacedGrid.Demo
 
 		private void RowSpacingSliderPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
 		{
-			if (e.Property.Name.Equals("Value", StringComparison.OrdinalIgnoreCase))
+			if (e.Property.Name.Equals("Value", StringComparison.OrdinalIgnoreCase) && spacedGrid != null)
 			{
 				spacedGrid.RowSpacing = (double)e.NewValue!;
 				textBlock_RowSpacing.Text = e.NewValue.ToString();
@@ -34,7 +34,7 @@ namespace AvaloniaSpacedGrid.Demo
 
 		private void ColumnSpacingSliderPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
 		{
-			if (e.Property.Name.Equals("Value", StringComparison.OrdinalIgnoreCase))
+			if (e.Property.Name.Equals("Value", StringComparison.OrdinalIgnoreCase) && spacedGrid != null)
 			{
 				spacedGrid.ColumnSpacing = (double)e.NewValue!;
 				textBlock_ColumnSpacing.Text = e.NewValue.ToString();

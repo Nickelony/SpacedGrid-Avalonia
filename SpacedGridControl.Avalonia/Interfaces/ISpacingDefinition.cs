@@ -1,4 +1,4 @@
-﻿namespace AvaloniaSpacedGrid
+﻿namespace SpacedGridControl.Avalonia.Interfaces
 {
 	public interface ISpacingDefinition
 	{

@@ -1,0 +1,127 @@
+<Window
+	x:Class="SpacedGridControl.Avalonia.Demo.MainWindow"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:sg="clr-namespace:SpacedGridControl.Avalonia;assembly=SpacedGridControl.Avalonia"
+	Title="SpacedGridControl.Avalonia.Demo"
+	Width="800"
+	Height="600"
+	WindowStartupLocation="CenterScreen">
+
+	<Grid RowDefinitions="*, 80">
+		<sg:SpacedGrid
+			Name="spacedGrid"
+			ColumnSpacing="10"
+			RowSpacing="10">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+
+			<Button
+				Grid.Row="0"
+				Grid.Column="0"
+				Grid.ColumnSpan="3"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch" />
+			<Button
+				Grid.Row="1"
+				Grid.Column="0"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch" />
+			<Button
+				Grid.Row="2"
+				Grid.Column="0"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch" />
+
+			<Button
+				Grid.Row="1"
+				Grid.RowSpan="2"
+				Grid.Column="1"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch" />
+
+			<Button
+				Grid.Row="1"
+				Grid.Column="2"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch" />
+			<Button
+				Grid.Row="2"
+				Grid.Column="2"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch" />
+
+			<Button
+				Grid.Row="0"
+				Grid.Column="3"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch" />
+			<Button
+				Grid.Row="1"
+				Grid.Column="3"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch" />
+			<Button
+				Grid.Row="2"
+				Grid.Column="3"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch" />
+		</sg:SpacedGrid>
+
+		<StackPanel
+			Grid.Row="1"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
+			Orientation="Horizontal">
+			<TextBlock
+				Margin="0,0,10,0"
+				VerticalAlignment="Center"
+				Text="RowSpacing:" />
+			<Slider
+				Width="200"
+				IsSnapToTickEnabled="True"
+				Maximum="50"
+				Minimum="0"
+				PropertyChanged="RowSpacingSliderPropertyChanged"
+				TickFrequency="1"
+				Value="10" />
+			<TextBlock
+				Name="textBlock_RowSpacing"
+				Width="30"
+				Margin="10,0,0,0"
+				VerticalAlignment="Center"
+				Text="10" />
+
+			<TextBlock
+				Margin="30,0,10,0"
+				VerticalAlignment="Center"
+				Text="ColumnSpacing:" />
+			<Slider
+				Width="200"
+				IsSnapToTickEnabled="True"
+				Maximum="50"
+				Minimum="0"
+				PropertyChanged="ColumnSpacingSliderPropertyChanged"
+				TickFrequency="1"
+				Value="10" />
+			<TextBlock
+				Name="textBlock_ColumnSpacing"
+				Width="30"
+				Margin="10,0,0,0"
+				VerticalAlignment="Center"
+				Text="10" />
+		</StackPanel>
+	</Grid>
+</Window>

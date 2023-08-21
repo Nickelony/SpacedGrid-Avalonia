@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
-namespace AvaloniaSpacedGrid.Demo
+namespace SpacedGridControl.Avalonia.Demo
 {
 	public class App : Application
 	{

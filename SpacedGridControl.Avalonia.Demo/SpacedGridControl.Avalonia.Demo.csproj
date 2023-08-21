@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net6.0</TargetFramework>
@@ -11,6 +11,6 @@
 		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.3" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\AvaloniaSpacedGrid\AvaloniaSpacedGrid.csproj" />
+	  <ProjectReference Include="..\SpacedGridControl.Avalonia\SpacedGridControl.Avalonia.csproj" />
 	</ItemGroup>
 </Project>
