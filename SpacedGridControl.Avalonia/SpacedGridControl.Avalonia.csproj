@@ -9,6 +9,7 @@
 		<Authors>Kewin Kupilas</Authors>
 		<Description>An extension of AvaloniaUI's Grid class with added RowSpacing and ColumnSpacing properties.</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/Nickelony/SpacedGrid-Avalonia</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Nickelony/SpacedGrid-Avalonia</RepositoryUrl>
 		<PackageTags>avalonia avaloniaui grid spacing spaced layout</PackageTags>
 		<Version>11.0.0.2-rc</Version>
