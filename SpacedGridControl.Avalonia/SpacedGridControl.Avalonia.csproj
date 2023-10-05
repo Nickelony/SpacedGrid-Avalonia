@@ -2,7 +2,6 @@
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<LangVersion>10.0</LangVersion>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageId>SpacedGrid-Avalonia</PackageId>
 		<Title>SpacedGrid for Avalonia</Title>
@@ -12,7 +11,7 @@
 		<PackageProjectUrl>https://github.com/Nickelony/SpacedGrid-Avalonia</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Nickelony/SpacedGrid-Avalonia</RepositoryUrl>
 		<PackageTags>avalonia avaloniaui grid spacing spaced layout</PackageTags>
-		<Version>11.0.0.2-rc</Version>
+		<Version>11.0.0</Version>
 		<PackageIcon>Icon.png</PackageIcon>
 	</PropertyGroup>
 	<ItemGroup>
